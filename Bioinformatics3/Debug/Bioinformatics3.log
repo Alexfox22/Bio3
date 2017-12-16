@@ -1,6 +1,6 @@
 ﻿  Source.cpp
-c:\users\nika-\documents\visual studio 2015\projects\bioinformatics3\bioinformatics3\source.cpp(217): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\nika-\documents\visual studio 2015\projects\bioinformatics3\bioinformatics3\source.cpp(228): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\nika-\documents\visual studio 2015\projects\bioinformatics3\bioinformatics3\source.cpp(271): warning C4018: <: несоответствие типов со знаком и без знака
-c:\users\nika-\documents\visual studio 2015\projects\bioinformatics3\bioinformatics3\source.cpp(275): warning C4018: <: несоответствие типов со знаком и без знака
-  Bioinformatics3.vcxproj -> c:\users\nika-\documents\visual studio 2015\Projects\Bioinformatics3\Debug\Bioinformatics3.exe
+c:\users\nika-\documents\visual studio 2015\projects\bioinformatics3\bioinformatics3\source.cpp(214): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\nika-\documents\visual studio 2015\projects\bioinformatics3\bioinformatics3\source.cpp(227): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\nika-\documents\visual studio 2015\projects\bioinformatics3\bioinformatics3\source.cpp(270): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\nika-\documents\visual studio 2015\projects\bioinformatics3\bioinformatics3\source.cpp(274): warning C4018: <: несоответствие типов со знаком и без знака
+  Bioinformatics3.vcxproj -> C:\Users\nika-\Documents\Visual Studio 2015\Projects\Bioinformatics3\Debug\Bioinformatics3.exe

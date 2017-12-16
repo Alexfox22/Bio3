@@ -81,12 +81,12 @@ void make_null(int *mas, int len)
 
 	}
 }
-void make_matrix(int **mas, int strlen, int cofstr, string *str, int *change,int kokoko)
+void make_matrix(int **mas, int strlen, int cofstr, string *str, int *change)
 {
 	for (int i = 0;i < (cofstr);i++)
 	{
 		int k = 0;
-		for (int j = 0 + change[i]+kokoko;j < strlen + change[i]+kokoko;j++)
+		for (int j = 0 + change[i];j < strlen + change[i];j++)
 		{
 			if ((str[i].substr(j, 1) == "A")) { mas[0][k]++; }
 			if ((str[i].substr(j, 1) == "C")) { mas[1][k]++; }
@@ -139,7 +139,7 @@ int consensusfirst(int **mas, int *popopo, int strlen, int max, int maxscore)
 
 	return mx;
 }
-int consensus(int **mas, int *popopo, int strlen, int max, int maxscore,string cofstr,string* strs,int* ch)
+int consensus(int **mas, int *popopo, int strlen, int max, int maxscore)
 {
 //	cout << "////" << strlen << " " << max << " " << maxscore << endl;
 	//int mx = 0;
@@ -147,9 +147,7 @@ int consensus(int **mas, int *popopo, int strlen, int max, int maxscore,string c
 	//cout << "maxscore ---> " << maxscore << endl;
 	int maximus = 0;
 	int mx = 0;
-	for (int p = 0;p < 4;p++) mas[p][0] = 0;
-	make_matrix(mas, 1, stoi(cofstr), strs, ch,0);
-	show_matrix(mas, 1);
+	//show_matrix(mas, strlen);
 	for (int j = 0;j < (4);j++)
 	{
 		if (mas[j][0] > maximus)
@@ -160,23 +158,22 @@ int consensus(int **mas, int *popopo, int strlen, int max, int maxscore,string c
 	}
 	mx = mx + maximus;
 	//maxscore = maxscore - maximus;
-	cout << maximus << " | ";
-	cout << "maxsc " << maxscore << endl;
+	//cout << maximus << " | ";
+	//cout << "maxsc " << maxscore << endl;
 	for (int i = 1;i < strlen;i++)
 	{
 		int maximus = 0;
 		
 		if (mx + (strlen - i)*max > maxscore)
 		{
-		cout << mx << " + " << (strlen - i)*max << " > " <<maxscore<< endl;
-			cout << "maxscore ---> " << maxscore << endl;
-			make_matrix(mas, 1, stoi(cofstr), strs, ch, i);
-			show_matrix(mas, 1);
+		//	cout << mx << " + " << (strlen - i)*max << " > " <<maxscore<< endl;
+		//	cout << "maxscore ---> " << maxscore << endl;
+
 			for (int j = 0;j < (4);j++)
 			{
-				if (mas[j][0] > maximus)
+				if (mas[j][i] > maximus)
 				{
-					maximus = mas[j][0];
+					maximus = mas[j][i];
 
 				}
 			}
@@ -184,13 +181,13 @@ int consensus(int **mas, int *popopo, int strlen, int max, int maxscore,string c
 			popopo[i] = maximus;
 		//	maxscore = maxscore - mx;
 			mx = mx + popopo[i];
-			cout << maximus << " | ";
+		//	cout << maximus << " | ";
 			
 			
 		}
 		else
 		{
-			cout <<endl<< "hey, i'll out" << endl;
+		//	cout <<endl<< "hey, i'll out" << endl;
 			mx = 0;
 			break;
 		}
@@ -216,8 +213,10 @@ int Hamming(string text, string pat)
 	int count = 0;
 	for (int i = 0;i < pat.length();i++)
 	{
+		
 		if (text.substr(i, 1) != pat.substr(i, 1)) count++;
 	}
+	//cout << endl;
 	return count;
 }
 minim TotalDistance(string str, string pat, int *mas)
@@ -313,12 +312,12 @@ void main()
 		bool isfirst = true;
 		while (g)
 		{
-			
+			make_matrix(mas, size, stoi(cofstr), strs, ch);
 
 			
 			int sumum = 0;
 			//show_matrix(mas, size);
-			if (isfirst==false) sumum = consensus(mas, d, size, stoi(cofstr), maximum, cofstr,strs,ch);
+			if (isfirst==false) sumum = consensus(mas, d, size, stoi(cofstr), maximum);
 			else
 			{
 				sumum = consensusfirst(mas, d, size, stoi(cofstr), maximum);
@@ -421,7 +420,7 @@ void main()
 		int len = strs[0].length();
 		int **mas = new int*[coun];
 		cout << coun << "  <----coun    ";
-		cout << len << "  <----len" << endl;
+		cout << len << "  <----len    " << endl;
 		for (int i = 0;i<coun;i++)
 		{
 			mas[i] = new int[len];
@@ -447,43 +446,93 @@ void main()
 			comb[i] = 1;
 		comb[sizeofpattern - 1] = 0;
 		minim *minimus = new minim[coun];
+		bool isfirst = true;
+		int sum;
 		while (rere)
 		{
 
 			rere = combination(comb, 4, sizeofpattern);
-			//for (int i = 0;i < sizeofpattern;i++)
-			//cout << comb[i] << "  -- ";
-			//cout << endl;
+			for (int i = 0;i < sizeofpattern;i++)
+			cout << comb[i] << "  -- ";
+			cout << endl;
 			for (int k = 0;k < sizeofpattern;k++)
 				pat = pat + symb[comb[k] - 1];
-			//cout << "<--" << pat << "-->" << endl;
-			for (int i = 0;i < coun;i++)
-			{
-				minimus[i] = TotalDistance(strs[i], pat, mas[i]);
-			}
-			int sum = 0;
-			for (int i = 0;i < coun;i++)
-			{
-				sum = sum + minimus[i].count;
-			}
-			for (int i = 0;i < coun;i++)
-			{
+			cout << "<--" << pat << "-->" << endl;
 
-				for (int j = 0;j < len - sizeofpattern + 1;j++)
+			if (isfirst == true)
+			{
+				cout << "first iteration" << endl;
+				for (int i = 0;i < coun;i++)
+				{
+					minimus[i] = TotalDistance(strs[i], pat, mas[i]);
+				}
+				int sum = 0;
+				for (int i = 0;i < coun;i++)
+				{
+					sum = sum + minimus[i].count;
+				}
+				for (int i = 0;i < coun;i++)
 				{
 
-					//cout << mas[i][j] << "  ";
-				}
-				if (sum < resic.count)
-				{
-					resic.count = sum;
-					resic.mean = pat;
-				}
-				//cout << "| " << minimus[i].count << endl;
+					for (int j = 0;j < len - sizeofpattern + 1;j++)
+					{
 
+						//cout << mas[i][j] << "  ";
+					}
+					if (sum < resic.count)
+					{
+						resic.count = sum;
+						resic.mean = pat;
+					}
+					//cout << "| " << minimus[i].count << endl;
+
+				}
+				pat = nul;
+				isfirst = false;
 			}
-			pat = nul;
+			else
+			{
+				sum = 0;
+				
+					minimus[0] = TotalDistance(strs[0], pat, mas[0]);
+					sum = sum + minimus[0].count; 
+				
+				for (int i = 1;i < coun;i++)
+				{
+					if (sum < resic.count)
+					{
+						minimus[i] = TotalDistance(strs[i], pat, mas[i]);
+						sum = sum + minimus[i].count;
+					}
+					else 
+					{
+						cout << "i got out of it" << endl;
+						sum = -1;
+						break;
+					}
+				}
 
+
+
+			for (int i = 0;i < coun;i++)
+				{
+					//for (int j = 0;j < len - sizeofpattern + 1;j++)
+					//{
+
+					//	//cout << mas[i][j] << "  ";
+					//}
+					if ((sum < resic.count)&&(sum!=-1))
+					{
+						resic.count = sum;
+						resic.mean = pat;
+					}
+					cout << "| " << minimus[i].count << endl;
+
+				}
+				pat = nul;
+			}
+			cout << "<" << resic.count << ">"<<endl;
+			cout << "_____________________" << endl;
 		}
 		cout << resic.count << "____" << resic.mean << endl;
 		result = resic.mean;
