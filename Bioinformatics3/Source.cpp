@@ -7,6 +7,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include <ctime>
 
 using namespace std;
 struct maxim
@@ -310,6 +311,7 @@ void main()
 		for (int e = 0;e < stoi(cofstr);e++)
 			ch2[e] = 1;
 		bool isfirst = true;
+		unsigned int start_time = clock();
 		while (g)
 		{
 			make_matrix(mas, size, stoi(cofstr), strs, ch);
@@ -373,7 +375,9 @@ void main()
 		}
 
 		cout << "maximum: " << maximum << endl;
-
+		unsigned int end_time = clock(); // конечное время
+		unsigned int search_time = end_time - start_time; // искомое время
+		cout << search_time / 10000.00 << endl;
 		for (int i = 0;i < stoi(cofstr);i++)
 		{
 			//cout << "___"<<chbuf[i] << " ";
@@ -448,20 +452,21 @@ void main()
 		minim *minimus = new minim[coun];
 		bool isfirst = true;
 		int sum;
+		unsigned int start_time = clock();
 		while (rere)
 		{
 
 			rere = combination(comb, 4, sizeofpattern);
-			for (int i = 0;i < sizeofpattern;i++)
-			cout << comb[i] << "  -- ";
-			cout << endl;
+			//for (int i = 0;i < sizeofpattern;i++)
+		//	cout << comb[i] << "  -- ";
+		//	cout << endl;
 			for (int k = 0;k < sizeofpattern;k++)
 				pat = pat + symb[comb[k] - 1];
-			cout << "<--" << pat << "-->" << endl;
+		//	cout << "<--" << pat << "-->" << endl;
 
 			if (isfirst == true)
 			{
-				cout << "first iteration" << endl;
+			//	cout << "first iteration" << endl;
 				for (int i = 0;i < coun;i++)
 				{
 					minimus[i] = TotalDistance(strs[i], pat, mas[i]);
@@ -506,36 +511,39 @@ void main()
 					}
 					else 
 					{
-						cout << "i got out of it" << endl;
+			//			cout << "i got out of it" << endl;
 						sum = -1;
 						break;
 					}
 				}
 
-
-
-			for (int i = 0;i < coun;i++)
+			//	cout << "<-<" << sum << ">->" << endl;
+				if ((sum < resic.count) && (sum != -1))
 				{
-					//for (int j = 0;j < len - sizeofpattern + 1;j++)
-					//{
-
-					//	//cout << mas[i][j] << "  ";
-					//}
-					if ((sum < resic.count)&&(sum!=-1))
-					{
-						resic.count = sum;
-						resic.mean = pat;
-					}
-					cout << "| " << minimus[i].count << endl;
-
+					resic.count = sum;
+					resic.mean = pat;
 				}
+			//for (int i = 0;i < coun;i++)
+			//	{
+			//		//for (int j = 0;j < len - sizeofpattern + 1;j++)
+			//		//{
+
+			//		//	//cout << mas[i][j] << "  ";
+			//		//}
+			//	
+			//		cout << "| " << minimus[i].count << endl;
+
+			//	}
 				pat = nul;
 			}
-			cout << "<" << resic.count << ">"<<endl;
-			cout << "_____________________" << endl;
+			//cout << "<" << resic.count << ">"<<endl;
+		//	cout << "_____________________" << endl;
 		}
-		cout << resic.count << "____" << resic.mean << endl;
+		unsigned int end_time = clock();
+	//	cout << resic.count << "__3__" << resic.mean << endl;
 		result = resic.mean;
+		unsigned int search_time = end_time - start_time;
+		cout << search_time/10000.00 << endl;
 
 	}
 
